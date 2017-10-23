@@ -2,7 +2,40 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 apply plugin: 'war'
-apply plugin: 'jetty'
+apply plugin: 'checkstyle'
+
+task checkstyleMain1 (type: Checkstyle) {
+    ignoreFailures = false
+    showViolations = false
+    source 'src/main'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    reports {
+        xml.destination "$project.buildDir/reports/checkstyle/main.xml"
+    }
+    classpath = files()
+    configFile = file("${rootDir}/config/checkstyle/ignitiv_checkStyle.xml")
+}
+
+task checkstyleTest1 (type: Checkstyle){
+    ignoreFailures = false
+    showViolations = false
+    source 'src/integrationtest', 'src/junittest'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    reports {
+        xml.destination "$project.buildDir/reports/checkstyle/test.xml"
+    }
+    classpath = files()
+    configFile = file("${rootDir}/config/checkstyle/ignitiv_checkStyle.xml")
+}
+
+task checkstyle(dependsOn:['checkstyleMain1', 'checkstyleTest1']) {
+}
 
 def loadConfiguration() {
     def environment = hasProperty('env') ? env : 'sameerlocal'
@@ -23,7 +56,6 @@ processResources.dependsOn copyConfiguration
 project.ext.set("tomcatHome", "E:/Akshay/quickbooks install/apache-tomcat-9.0.1")
 archivesBaseName='hdmi'
 group='wars'
-httpPort=8002
 war.archiveName="hdmi.war.env"
 
 // Dynamically insert TeamCity build number if available
@@ -42,11 +74,6 @@ war {
     }
 }
 
-jettyRun {
-	reload="automatic"
-	scanIntervalSeconds=2
-}
-
 task wrapper(type: Wrapper) {
     gradleVersion = '3.1'
 }
@@ -62,11 +89,14 @@ configurations.all {
 }
 
 dependencies {
+
+	checkstyle 'com.puppycrawl.tools:checkstyle:8.3'
+	
 	ext {
 		springVersion='5.0.0.RELEASE'
 	}	
 	providedCompile 'javax.servlet:servlet-api:2.5'
-
+	
     compile group: 'org.springframework', name: 'spring-aop', version: springVersion
     compile group: 'org.springframework', name: 'spring-beans', version: springVersion
     compile group: 'org.springframework', name: 'spring-context', version: springVersion

@@ -32,7 +32,7 @@ import com.mozu.api.utils.JsonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-"file:src/main/webapp/WEB-INF/spring/homehardware/servlet-context.xml" })
+	"file:src/main/webapp/WEB-INF/spring/homehardware/servlet-context.xml" })
 public class EntityHandlerTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(EntityHandlerTest.class);
@@ -50,7 +50,7 @@ public class EntityHandlerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		tenantId = 17120;
+		tenantId = new Integer("17120");
 		siteId = null;
 	}
 
@@ -73,14 +73,16 @@ public class EntityHandlerTest {
 		//TODO implement
 	}
 
-	private void runCleanup(String entityName, String key) throws Exception {
-		EntityResource entityResource = new EntityResource(new MozuApiContext(tenantId));
+	private void runCleanup(final String entityName, final String key) throws Exception {
+		final EntityResource entityResource = new EntityResource(
+				new MozuApiContext(tenantId));
 
-		EntityCollection entities = entityResource.getEntities(entityName, 200, 0, null, null, null);
+		final EntityCollection entities = entityResource.getEntities(
+				entityName, 200, 0, null, null, null);
 
 		for(JsonNode entity : entities.getItems()) {
 			if (entity.has(key)) {
-				String id  = entity.get(key).asText();
+				final String id  = entity.get(key).asText();
 				logger.info("Deleting id: " + id + " from " + entityName);
 				entityResource.deleteEntity(entityName, id);
 			}
