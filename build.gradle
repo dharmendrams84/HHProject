@@ -114,6 +114,8 @@ dependencies {
     compile group: 'org.apache.camel', name: 'camel-core', version: '2.8.3'
     compile group: 'org.apache.activemq', name: 'activemq-all', version: '5.4.2'
     compile 'org.springframework.batch:spring-batch-core:3.0.8.RELEASE'
+    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '4.2.14.Final'
+    
 
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
     
