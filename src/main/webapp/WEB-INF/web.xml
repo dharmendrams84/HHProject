@@ -37,7 +37,7 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-        <welcome-file>resources/index.html</welcome-file>
+        <welcome-file>/WEB-INF/templates/index.html</welcome-file>
     </welcome-file-list>
     
 </web-app>
