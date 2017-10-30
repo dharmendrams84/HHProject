@@ -30,11 +30,42 @@
  -->
 	<!-- <beans:bean id="myLogger" class="com.homehardware.logging.util.HHAOPLogger" />  -->
 
+ <!-- <beans:bean id="dataSource"
+        class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+        mvc:driverClassName="com.mysql.jdbc.Driver"
+        mvc:url="jdbc:mysql://localhost:3306/sys"  mvc:username="root"
+       mvc:password="ignitiv123" /> -->
+ <beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">  
+        <beans:property name="driverClassName"  value="com.mysql.jdbc.Driver"></beans:property>  
+        <beans:property name="url" value="jdbc:mysql://localhost:3306/sys"></beans:property>  
+        <beans:property name="username" value="root"></beans:property>  
+        <beans:property name="password" value="ignitiv123"></beans:property>  
+    </beans:bean>
+ 
+    <beans:bean id="sessionFactory"
+        class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <beans:property name="configLocation">
+            <beans:value>classpath:hibernate.cfg.xml</beans:value>
+        </beans:property>
+        
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+                <beans:prop key="hibernate.show_sql">true</beans:prop>
+            </beans:props>
+        </beans:property>
+        
+        
+       
+        
+     </beans:bean>
+
 	<beans:bean id="cacheManagerImpl" name="cacheManagerImpl"
 		class="com.mozu.api.cache.impl.CacheManagerImpl" init-method="startCache"
 		destroy-method="stopCache" lazy-init="false">
 	</beans:bean>
-	
+	<beans:bean id="employee" class="com.homehardware.Employee"></beans:bean>
 	<!-- enables scanning for @Scheduled annotations -->
 	<task:annotation-driven/>
 
