@@ -53,10 +53,7 @@ task copyConfiguration << {
 loadConfiguration()
 processResources.dependsOn copyConfiguration
 
-
 project.ext.set("tomcatHome", "D:/HOMEHARDWARE/software_installation/apache-tomcat-9.0.1-windows-x64/apache-tomcat-9.0.1")
-
-
 archivesBaseName='hdmi'
 group='wars'
 war.archiveName="hdmi.war"
@@ -96,28 +93,22 @@ dependencies {
 	checkstyle 'com.puppycrawl.tools:checkstyle:8.3'
 	
 	ext {
-		springVersion='4.2.5.RELEASE'
+		springVersion='5.0.0.RELEASE'
 	}	
-	providedCompile 'javax.servlet:servlet-api:2.5'
 	
+	providedCompile 'javax.servlet:servlet-api:2.5'
+		
     compile group: 'org.springframework', name: 'spring-aop', version: springVersion
     compile group: 'org.springframework', name: 'spring-beans', version: springVersion
     compile group: 'org.springframework', name: 'spring-context', version: springVersion
     compile group: 'org.springframework', name: 'spring-core', version: springVersion
-    compile group: 'org.springframework', name: 'spring-expression', version: springVersion
-    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
-    compile group: 'org.springframework', name: 'spring-web', version: springVersion
+    compile group: 'org.springframework', name: 'spring-expression', version: springVersion   
+    compile group: 'org.springframework', name: 'spring-web', version: springVersion     
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion 
     compile group: 'org.springframework', name: 'spring-test', version: springVersion
     compile group: 'org.springframework', name: 'spring-aspects', version: springVersion
     compile group: 'org.springframework', name: 'spring-orm', version: springVersion
-   
-    compile group: 'org.apache.camel', name: 'camel-core', version: '2.8.3'
-    compile group: 'org.apache.activemq', name: 'activemq-all', version: '5.4.2'
-    compile 'org.springframework.batch:spring-batch-core:3.0.8.RELEASE'
-    compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '4.2.14.Final'
     
-
-    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
     
 	compile ("com.mozu:mozu-api-toolkit:1.1.9") {
 		exclude group: 'mysql'
@@ -152,8 +143,6 @@ dependencies {
     compile ('org.thymeleaf:thymeleaf:3.0.8.RELEASE')
     compile ('org.thymeleaf:thymeleaf-spring5:3.0.8.RELEASE')
     
-    compile ('org.hibernate:hibernate-gradle-plugin:5.0.6.Final')
-    
     compile ('org.apache.axis:axis:1.4')
     compile ('javax.xml:jaxrpc-api:1.1')
     compile	('javax.xml.ws:jaxws-api:2.2.6')
@@ -177,17 +166,24 @@ dependencies {
     
     compile ('org.hibernate:hibernate-core:5.2.12.Final')
     compile ('org.hibernate:hibernate-ehcache:5.2.12.Final')
-    compile ('org.hibernate:hibernate-entitymanager:5.2.12.Final')
-    compile ('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final')
+    compile ('org.hibernate:hibernate-entitymanager:4.3.8.Final')
+    compile ('org.hibernate.javax.persistence:hibernate-jpa-2.1-api:1.0.0.Final')    
+    compile ('org.springframework.batch:spring-batch-core:3.0.8.RELEASE')
     
-    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jdbc
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.2'
+      
 	compile group: 'org.apache.tomcat', name: 'tomcat-jdbc', version: '9.0.1'
-        
-   // compile('ignitiv:etltool:1.0')
-     
+	
+	compile group: 'org.apache.camel', name: 'camel-core', version: '2.20.0'
+	
+	compile group: 'org.apache.activemq', name: 'activemq-core', version: '5.7.0'
+	
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+    
+	compile group: 'org.apache.logging.log4j', name: 'log4j-web', version: '2.3'
+
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
-
 test {
     systemProperties 'property': 'value'
 }

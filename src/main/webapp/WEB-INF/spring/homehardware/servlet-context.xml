@@ -66,6 +66,7 @@
 		destroy-method="stopCache" lazy-init="false">
 	</beans:bean>
 	<beans:bean id="employee" class="com.homehardware.Employee"></beans:bean>
+	<beans:bean id="hhDaoImpl" class="com.homehardware.dao.HhDaoImpl"></beans:bean>
 	<!-- enables scanning for @Scheduled annotations -->
 	<task:annotation-driven/>
 
